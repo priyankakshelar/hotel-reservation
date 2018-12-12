@@ -6,12 +6,23 @@ import javax.persistence.*;
 @Entity
 @Table(name = "customer")
 public class Customer {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "customer_number")
   private Long customerNumber;
+
   private String name;
+
   private String address;
+
+  public Customer() {
+  }
+
+  public Customer(String name, String address) {
+    this.name = name;
+    this.address = address;
+  }
 
   public Long getCustomerNumber() {
     return customerNumber;

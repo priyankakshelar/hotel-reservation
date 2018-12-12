@@ -13,13 +13,22 @@ public class Reservation {
   private Long reservationNumber;
 
   @Column(name = "customer_number")
-  private Integer customerNumber;
+  private Long customerNumber;
 
   @Column(name = "checkin_date")
   private Date checkinDate;
 
   @Column(name = "checkout_date")
   private Date checkoutDate;
+
+  public Reservation() {
+  }
+
+  public Reservation(Long customerNumber, Date checkinDate, Date checkoutDate) {
+    this.customerNumber = customerNumber;
+    this.checkinDate = checkinDate;
+    this.checkoutDate = checkoutDate;
+  }
 
   public Long getReservationNumber() {
     return reservationNumber;
@@ -29,11 +38,11 @@ public class Reservation {
     this.reservationNumber = reservationNumber;
   }
 
-  public Integer getCustomerNumber() {
+  public Long getCustomerNumber() {
     return customerNumber;
   }
 
-  public void setCustomerNumber(Integer customerNumber) {
+  public void setCustomerNumber(Long customerNumber) {
     this.customerNumber = customerNumber;
   }
 
@@ -41,6 +50,7 @@ public class Reservation {
     return checkinDate;
   }
 
+  @Temporal(TemporalType.DATE)
   public void setCheckinDate(Date checkinDate) {
     this.checkinDate = checkinDate;
   }
@@ -49,6 +59,7 @@ public class Reservation {
     return checkoutDate;
   }
 
+  @Temporal(TemporalType.DATE)
   public void setCheckoutDate(Date checkoutDate) {
     this.checkoutDate = checkoutDate;
   }
