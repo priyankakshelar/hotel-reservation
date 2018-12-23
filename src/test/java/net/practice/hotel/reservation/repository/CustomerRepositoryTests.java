@@ -35,7 +35,6 @@ public class CustomerRepositoryTests {
     // when
     List<Customer> customers = customerRepository.findByName("Saanvi");
 
-    customerRepository.findAll();
     // then
     Customer customer1 = customers.get(0);
     assertEquals("Saanvi", customer1.getName());

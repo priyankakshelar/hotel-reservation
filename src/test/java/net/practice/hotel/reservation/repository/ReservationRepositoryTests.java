@@ -43,7 +43,7 @@ public class ReservationRepositoryTests {
 
     // then
     Assert.assertEquals(1l, reservation.getReservationNumber().longValue());
-    Assert.assertEquals(1, reservation.getCustomerNumber().longValue());
+    Assert.assertEquals(1l, reservation.getCustomerNumber().longValue());
     Assert.assertEquals(toDate("2018-11-24"), reservation.getCheckinDate());
     Assert.assertEquals(toDate("2018-12-01"), reservation.getCheckoutDate());
   }

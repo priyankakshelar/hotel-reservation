@@ -1,30 +1,15 @@
-package net.practice.hotel.reservation.entity;
+package net.practice.hotel.reservation.dto;
 
+public class CustomerDto {
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "customer")
-public class Customer {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "customer_number")
   private Long customerNumber;
-
   private String name;
-
   private String address;
 
-  public Customer() {
+  public CustomerDto() {
   }
 
-  public Customer(String name, String address) {
-    this.name = name;
-    this.address = address;
-  }
-
-  public Customer(Long customerNumber, String name, String address) {
+  public CustomerDto(Long customerNumber, String name, String address) {
     this.customerNumber = customerNumber;
     this.name = name;
     this.address = address;
@@ -56,7 +41,7 @@ public class Customer {
 
   @Override
   public String toString() {
-    return "Customer{" +
+    return "CustomerDto{" +
       "customerNumber=" + customerNumber +
       ", name='" + name + '\'' +
       ", address='" + address + '\'' +
