@@ -1,0 +1,5 @@
+net/practice/hotel/reservation/repository/AbstractRespositoryIT.class
+net/practice/hotel/reservation/repository/ReservationRepositoryTests.class
+net/practice/hotel/reservation/repository/CustomerRepositoryTests.class
+net/practice/hotel/reservation/service/ReservationServiceImplTests.class
+net/practice/hotel/reservation/service/CustomerServiceImplTest.class

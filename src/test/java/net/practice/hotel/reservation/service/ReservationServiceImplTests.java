@@ -1,5 +1,6 @@
 package net.practice.hotel.reservation.service;
 
+import net.practice.hotel.reservation.dto.ReservationDto;
 import net.practice.hotel.reservation.entity.Reservation;
 import net.practice.hotel.reservation.exception.ReservationNotFoundException;
 import net.practice.hotel.reservation.repository.ReservationRepository;
@@ -8,10 +9,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,8 +21,10 @@ public class ReservationServiceImplTests {
 
   @Rule
   public ExpectedException exception = ExpectedException.none();
+
   @Mock
   private ReservationRepository reservationRepository;
+
   @InjectMocks
   private ReservationService reservationService = new ReservationServiceImpl();
 
@@ -41,29 +41,31 @@ public class ReservationServiceImplTests {
     Mockito.when(reservationRepository.findByPeriod(startDate, endDate)).thenReturn(getReservationList());
 
     //when
-    List<Reservation> reservations = reservationService.findByPeriod(startDate, endDate);
+    List<ReservationDto> reservations = reservationService.findByPeriod(startDate, endDate);
 
     //then
-
     Assert.assertEquals(3, reservations.size());
-    Reservation reservation = reservations.get(0);
+    ReservationDto reservation = reservations.get(0);
+    Assert.assertEquals(new Long(1l), reservation.getCustomerNumber());
+    Assert.assertEquals(toDate("2018-11-24"), reservation.getCheckinDate());
     Assert.assertEquals(toDate("2018-12-01"), reservation.getCheckoutDate());
 
   }
+
 
   @Test
   public void testReservationByReservationAndCustomerNum() throws ParseException {
     //given
     Long reservationNumber = 1l;
     Long customerNumber = 1l;
-    Reservation reservation = new Reservation(customerNumber, toDate("2018-11-24"), toDate("2018-12-01"));
+    Reservation reservation = new Reservation(reservationNumber, customerNumber, toDate("2018-11-24"), toDate("2018-12-01"));
     Mockito.when(reservationRepository.findByReservationNumberAndCustomerNumber(reservationNumber, customerNumber)).thenReturn(reservation);
 
     //when
-    Reservation actualReservation = reservationService.findByReservationNumberAndCustomerNumber(reservationNumber, customerNumber);
+    ReservationDto actualReservation = reservationService.findByReservationNumberAndCustomerNumber(reservationNumber, customerNumber);
 
     // then
-    Assert.assertEquals(actualReservation, reservation);
+    Assert.assertEquals(reservation.getCustomerNumber(), actualReservation.getCustomerNumber());
   }
 
   @Test
@@ -84,13 +86,17 @@ public class ReservationServiceImplTests {
   @Test
   public void testCreateReservation() throws ParseException {
     //given
-    Reservation reservation = new Reservation(null, toDate("2018-11-24"), toDate("2018-12-01"));
-
+    Reservation reservation = new Reservation(1l, toDate("2018-11-24"), toDate("2018-12-01"));
+    ReservationDto reservationDto = new ReservationDto(1l, toDate("2018-11-24"), toDate("2018-12-01"));
+    Mockito.when(reservationRepository.save(ArgumentMatchers.any(Reservation.class))).thenReturn(reservation);
     //when
-    reservationService.createReservation(reservation);
+
+    ReservationDto outputReservationDto = reservationService.createReservation(reservationDto);
 
     //then
-    Mockito.verify(reservationRepository, Mockito.times(1)).save(reservation);
+    Assert.assertEquals(reservation.getCustomerNumber(), outputReservationDto.getCustomerNumber());
+    Assert.assertEquals(reservation.getCheckinDate(), outputReservationDto.getCheckinDate());
+    Assert.assertEquals(reservation.getCheckoutDate(), outputReservationDto.getCheckoutDate());
   }
 
   @Test

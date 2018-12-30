@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.ParseException;
@@ -21,7 +20,7 @@ import java.util.List;
 @DataJpaTest
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ReservationRepositoryTests {
 
   @Autowired
@@ -35,6 +34,8 @@ public class ReservationRepositoryTests {
     // given
     resetAutoIncrement("reservation");
     resetAutoIncrement("customer");
+    testEntityManager.persist(new Customer("sameer", "nashik"));
+    testEntityManager.persist(new Customer("priyanka", "pune"));
     testEntityManager.persist(new Reservation(1l, toDate("2018-11-24"), toDate("2018-12-01")));
     testEntityManager.persist(new Reservation(2l, toDate("2018-12-01"), toDate("2018-12-08")));
 

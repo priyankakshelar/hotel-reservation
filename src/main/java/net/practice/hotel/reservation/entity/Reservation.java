@@ -30,6 +30,13 @@ public class Reservation {
     this.checkoutDate = checkoutDate;
   }
 
+  public Reservation(Long reservationNumber, Long customerNumber, Date checkinDate, Date checkoutDate) {
+    this.reservationNumber = reservationNumber;
+    this.customerNumber = customerNumber;
+    this.checkinDate = checkinDate;
+    this.checkoutDate = checkoutDate;
+  }
+
   public Long getReservationNumber() {
     return reservationNumber;
   }
@@ -62,6 +69,21 @@ public class Reservation {
   @Temporal(TemporalType.DATE)
   public void setCheckoutDate(Date checkoutDate) {
     this.checkoutDate = checkoutDate;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Reservation)) return false;
+
+    Reservation that = (Reservation) o;
+
+    return reservationNumber.equals(that.reservationNumber);
+  }
+
+  @Override
+  public int hashCode() {
+    return reservationNumber.hashCode();
   }
 
   @Override
