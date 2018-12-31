@@ -7,9 +7,9 @@ import java.util.Date;
 public class ReservationDto {
   private Long reservationNumber;
   private Long customerNumber;
-  @JsonFormat(pattern="yyyy-MM-dd")
+  @JsonFormat(pattern = "yyyy-MM-dd")
   private Date checkinDate;
-  @JsonFormat(pattern="yyyy-MM-dd")
+  @JsonFormat(pattern = "yyyy-MM-dd")
   private Date checkoutDate;
 
   public ReservationDto(Long customerNumber, Date checkinDate, Date checkoutDate) {
