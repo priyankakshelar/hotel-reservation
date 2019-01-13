@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: net.practice.hotel.reservation.repository.ReservationRepositoryTests
--------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.278 s - in net.practice.hotel.reservation.repository.ReservationRepositoryTests
